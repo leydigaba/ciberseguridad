@@ -1,0 +1,198 @@
+$def with ()
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background: linear-gradient(135deg, #009688, #4DB6AC);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .container {
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        max-width: 400px;
+        width: 90%;
+    }
+
+    .title {
+        color: #009688;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .subtitle {
+        color: #4DB6AC;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .option-button {
+        background-color: #fff;
+        border: 2px solid #009688;
+        border-radius: 10px;
+        padding: 15px;
+        width: 150px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        font-size: 12px;
+    }
+
+    .option-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .option-button img {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+    }
+
+    .option-button span {
+        color: #009688;
+        font-weight: bold;
+    }
+
+    #modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 300px;
+        width: 80%;
+    }
+
+    .modal-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .modal-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        font-size: 12px;
+    }
+
+    .modal-button.confirm {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .modal-button.cancel {
+        background-color: #f44336;
+        color: white;
+    }
+
+    @media (max-width: 600px) {
+        .button-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 class="title">Aprende, reta tu mente y demuestra lo que sabes.</h1>
+    <h2 class="subtitle">Elige tu experiencia</h2>
+
+    <div class="button-container">
+        <div class="option-button" id="learn-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/3079/3079014.png" alt="Aprender">
+            <span>Aprender</span>
+        </div>
+        <div class="option-button" id="game-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/3845/3845880.png" alt="Juego">
+            <span>Juego</span>
+        </div>
+    </div>
+</div>
+
+<div id="modal">
+    <div class="modal-content">
+        <h3>Confirmación</h3>
+        <p id="modal-message"></p>
+        <div class="modal-buttons">
+            <form action="/targetaUno" method="get">
+                <button class="modal-button confirm" id="confirm-btn">Confirmar</button>
+            </form>
+            <form action="/Opciones" method="get">
+            <button class="modal-button cancel" id="cancel-btn">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const learnBtn = document.getElementById('learn-btn');
+        const gameBtn = document.getElementById('game-btn');
+        const modal = document.getElementById('modal');
+        const modalMessage = document.getElementById('modal-message');
+        const cancelBtn = document.getElementById('cancel-btn');
+        
+
+        function showModal(message) {
+            modalMessage.textContent = message;
+            modal.style.display = 'flex';
+        }
+
+        learnBtn.addEventListener('click', () => {
+            showModal('¿Deseas comenzar la sección de aprendizaje?');
+        });
+
+        gameBtn.addEventListener('click', () => {
+            showModal('¿Deseas comenzar el juego?');
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+    });
+</script>
+
+</body>
+</html>
